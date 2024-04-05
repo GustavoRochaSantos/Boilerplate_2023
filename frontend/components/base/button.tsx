@@ -1,12 +1,14 @@
+import { RandomHash } from "@/utils/generic";
 import { Spinner } from "@phosphor-icons/react/dist/ssr";
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-interface Params {
-  type?: "primary" | "secondary" | "ghost";
+interface Params extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
+  type?: "primary" | "secondary" | "ghost" | "danger";
   children: React.ReactNode;
   icon?: React.ReactNode;
   iconPosition?: "after" | "before";
   loading?: Boolean;
+  fullSize?: Boolean;
 }
 
 const Button = ({
@@ -15,21 +17,32 @@ const Button = ({
   icon,
   iconPosition = "before",
   loading = false,
+  fullSize,
+  id = RandomHash(),
+  ...props
 }: Params) => {
-  if (loading) {
+  const baseButton = (children: React.ReactNode) => {
     return (
-      <button className="btn">
-        <Spinner size={30} className="animate-spin" />
+      <button
+        className={`btn ${type} ${fullSize && "w-full"} mt-2`}
+        {...props}
+        data-test={`button-${id}`}
+      >
+        {children}
       </button>
     );
+  };
+
+  if (loading) {
+    return baseButton(<Spinner size={30} className="animate-spin" />);
   }
 
-  return (
-    <button className={`btn ${type} `}>
+  return baseButton(
+    <>
       {icon && iconPosition === "before" && icon}
       {children}
       {icon && iconPosition === "after" && icon}
-    </button>
+    </>
   );
 };
 
