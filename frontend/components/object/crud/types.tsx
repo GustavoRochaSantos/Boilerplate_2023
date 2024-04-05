@@ -1,13 +1,9 @@
+import React from "react";
+
 interface Titles {
   form?: string;
   listing?: string;
   report?: string;
-}
-
-enum FieldType {
-  string,
-  number,
-  date,
 }
 
 interface FieldBehavior {
@@ -16,7 +12,7 @@ interface FieldBehavior {
 }
 
 export interface Field {
-  type: "string" | "number" | "date";
+  type: "action" | "string" | "number" | "date";
   name: string;
   label?: string;
   form?: FieldBehavior & {
@@ -35,10 +31,23 @@ export interface Field {
   };
 }
 
+export interface ListingType {
+  actions?: React.ReactNode[];
+  includeInsert?: boolean;
+  grid?: {
+    includeUpdate?: boolean;
+    includeDelete?: boolean;
+    actions?: {
+      name: string;
+      label?: string;
+      action?: () => any;
+    }[];
+  };
+}
 export interface CRUDConfig {
   entitySingular: string;
   entityPlural: string;
-  titles: Titles;
+  listing?: ListingType;
   fields: Field[];
   services?: {};
 }

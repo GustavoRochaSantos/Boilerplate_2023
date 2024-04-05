@@ -24,7 +24,7 @@ const Button = ({
   const baseButton = (children: React.ReactNode) => {
     return (
       <button
-        className={`btn ${type} ${fullSize && "w-full"} mt-2`}
+        className={`btn ${type} ${fullSize ? "w-full" : ""}`}
         {...props}
         data-test={`button-${id}`}
       >

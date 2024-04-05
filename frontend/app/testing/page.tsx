@@ -46,11 +46,15 @@ const fields: Field[] = [
 const crud: CRUDConfig = {
   entitySingular: "Cliente",
   entityPlural: "Clientes",
-  titles: {
-    form: "Cadastro de ",
-    listing: "Consulta de ",
-  },
   fields,
+  listing: {
+    includeInsert: true,
+    actions: [<Button type="ghost">Exportar</Button>],
+    grid: {
+      includeDelete: true,
+      includeUpdate: true,
+    },
+  },
 };
 
 const TestingPage = ({}: Params) => {

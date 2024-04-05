@@ -6,6 +6,18 @@
   body {
     height: 100vh;
   }
+
+  .grid_icon {
+    @apply w-[40px] p-2;
+
+    div {
+      @apply p-1 rounded-full bg-gray-200;
+    }
+
+    svg {
+      @apply w-[18px] h-[18px] text-gray-700;
+    }
+  }
   @import url(./layout.css);
 }
 
